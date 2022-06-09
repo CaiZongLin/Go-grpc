@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package pb;
+option go_package = ".";
+
+service ServiceServer{
+    rpc Search (GetProductRequest) returns (GetProductReply) {}
+    rpc SearchAll (GetProductRequest) returns (GetAllProductReply) {}
+    rpc InsertProduct (InsertRequest) returns (StatusReply) {}
+    rpc ModifyProduct (ModifyRequest) returns (StatusReply) {}
+    rpc BuyProduct (BuyRequest) returns (StatusReply) {}
+    rpc TurnoverSearch (TurnoverRequest) returns (TurnoverReply) {}
+}
+
+message GetProductRequest{
+    int32 id = 1;
+}
+
+message GetProductReply{
+    string name = 1;
+    int32 price=2;
+    int32 inventory=3;
+}
+
+message GetAllProductReply{
+    map<int32,string> AllProduct = 1;
+}
+
+message InsertRequest{
+    string name = 1;
+    int32 price = 2;
+    int32 inventory = 3;
+}
+
+message ModifyRequest{
+    int32 id = 1;
+    string name =2;
+    int32 price=3;
+    int32 inventory=4;
+}
+
+message StatusReply {
+    int32 code= 1;
+    string status = 2;
+}
+
+message BuyRequest{
+    string customer = 1;
+    string production =2;
+}
+
+message TurnoverRequest {
+    string date = 1;
+}
+
+message TurnoverReply {
+    map<string,int32> product_info = 1;
+    int32 total_price =2;
+}
